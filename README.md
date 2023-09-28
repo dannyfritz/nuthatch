@@ -8,22 +8,21 @@ When `Rendix.clear()` is called, the screen & buffer are blanked; no state is re
 ## Features
 
 - Foundational
-	- [x] render
-	- [x] clear
+  - [x] render
+  - [x] clear
 - DrawObjects
   - [ ] drawCircle
   - [ ] drawLine
   - [ ] drawPolygon
-	- [x] drawRect
-	- [x] drawSprte
-	- [x] drawText
-	- [x] fillStyle
+  - [x] drawRect
+  - [x] drawSprte
+  - [x] drawText
+  - [x] fillStyle
 - Framebuffer
   - [ ] Save Framebuffer
 - Matrix Transforms
-	- [x] scale
-	- [x] rotate
-	- [x] translate
-	- [x] push
-	- [x] pop
-
+  - [x] scale
+  - [x] rotate
+  - [x] translate
+  - [x] push
+  - [x] pop

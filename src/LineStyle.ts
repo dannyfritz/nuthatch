@@ -1,6 +1,5 @@
 class LineStyle {
-  constructor() {
-  }
+  constructor() {}
 }
 
 export { LineStyle };

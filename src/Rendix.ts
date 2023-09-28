@@ -59,7 +59,7 @@ class Rendix {
     this.#matrix.rotate(angle);
   }
   scale(x: number, y: number) {
-    this.#matrix.scale(x, y)
+    this.#matrix.scale(x, y);
   }
   render(): void {
     const container = new Pixi.Container();
@@ -79,4 +79,3 @@ class Rendix {
 }
 
 export { Rendix };
-
