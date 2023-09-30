@@ -15,6 +15,8 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "@lit-labs/preact-signals": "^1.0.0-pre.0",
+    "lit": "^3.0.0-pre.1",
     "pixi.js": "^7.3.0",
     "sim-ecs": "^0.6.2"
   }
