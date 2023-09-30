@@ -26,4 +26,3 @@ When `Rendix.clear()` is called, the screen & buffer are blanked; no state is re
   - [x] translate
   - [x] push
   - [x] pop
-

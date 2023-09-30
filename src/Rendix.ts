@@ -44,35 +44,35 @@ class LineStyle {
 }
 
 class Transform {
-    constructor(matrix?: Pixi.Matrix) {
-        this.#matrix = matrix ?? Pixi.Matrix.IDENTITY.clone();
-        this.#matrixStack = [this.#matrix];
+  constructor(matrix?: Pixi.Matrix) {
+    this.#matrix = matrix ?? Pixi.Matrix.IDENTITY.clone();
+    this.#matrixStack = [this.#matrix];
+  }
+  get matrix(): Pixi.Matrix {
+    return this.#matrix.clone();
+  }
+  pop() {
+    if (this.#matrixStack.length > 0) {
+      this.#matrix = this.#matrixStack.pop()!;
+    } else {
+      this.#matrix = Pixi.Matrix.IDENTITY.clone();
     }
-    get matrix(): Pixi.Matrix {
-        return this.#matrix.clone();
-    }
-    pop() {
-        if (this.#matrixStack.length > 0) {
-            this.#matrix = this.#matrixStack.pop()!;
-        } else {
-            this.#matrix = Pixi.Matrix.IDENTITY.clone();
-        }
-    }
-    push() {
-        this.#matrixStack.push(this.#matrix);
-        this.#matrix = this.#matrix.clone();
-    }
-    rotate(angle: number) {
-        this.#matrix.rotate(angle);
-    }
-    scale(x: number, y: number) {
-        this.#matrix.scale(x, y);
-    }
-    translate(x: number, y: number) {
-        this.#matrix.translate(x, y);
-    }
-    #matrix: Pixi.Matrix;
-    #matrixStack: Array<Pixi.Matrix>;
+  }
+  push() {
+    this.#matrixStack.push(this.#matrix);
+    this.#matrix = this.#matrix.clone();
+  }
+  rotate(angle: number) {
+    this.#matrix.rotate(angle);
+  }
+  scale(x: number, y: number) {
+    this.#matrix.scale(x, y);
+  }
+  translate(x: number, y: number) {
+    this.#matrix.translate(x, y);
+  }
+  #matrix: Pixi.Matrix;
+  #matrixStack: Array<Pixi.Matrix>;
 }
 
 class Rendix {
