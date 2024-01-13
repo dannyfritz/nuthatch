@@ -19,9 +19,9 @@ const render = async () => {
   rendix.clear();
   if (showLogo.peek()) {
     rendix.transform.push();
-    rendix.transform.translate(-150, 0);
+    rendix.transform.translate(50, 50 + sin * 10);
     rendix.transform.scale(2, 2);
-    rendix.drawSprite(pixiTexture, 150, 150 + sin * 10);
+    rendix.drawSprite(pixiTexture);
     rendix.transform.pop();
   }
   rendix.render();

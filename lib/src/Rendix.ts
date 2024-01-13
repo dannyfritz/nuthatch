@@ -28,6 +28,10 @@ class Transform {
   translate(x: number, y: number) {
     this.#matrix.translate(x, y);
   }
+  applyToContainer(container: Container) {
+    container.x = this.#matrix.tx;
+    container.y = this.#matrix.ty;
+  }
   #matrix: Matrix;
   #matrixStack: Array<Matrix>;
 }
@@ -51,11 +55,10 @@ class Rendix {
   drawRect(x: number, y: number, width: number, height: number): void {
     console.log(x, y, width, height);
   }
-  drawSprite(texture: Texture, x: number, y: number): void {
-    this.transform.translate(x, y);
+  drawSprite(texture: Texture): void {
     const sprite = new Sprite(texture);
-    sprite.localTransform.copyFrom(this.transform.matrix);
-    this.#buffer.push([sprite, this.transform.matrix])
+    this.transform.applyToContainer(sprite);
+    this.#buffer.push(sprite)
   }
   load(url: string): Promise<Texture> {
     return Assets.load(url);
@@ -63,12 +66,7 @@ class Rendix {
   transform: Transform;
   render(): void {
     const container = new Container();
-    for (const [displayObject, matrix] of this.#buffer) {
-      const layer = new Container();
-      layer.addChild(displayObject);
-      layer.localTransform.copyFrom(matrix);
-      container.addChild(layer);
-    }
+    container.addChild(...this.#buffer);
     this.#pixiRenderer?.render(container);
   }
   get el(): HTMLCanvasElement {
@@ -77,7 +75,7 @@ class Rendix {
   get ready(): Promise<Rendix> {
     return this.#ready;
   }
-  #buffer: Array<[Container, Matrix]>;
+  #buffer: Array<Container>;
   #pixiRenderer: Renderer | undefined;
   #ready: Promise<Rendix>;
 }

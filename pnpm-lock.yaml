@@ -34,8 +34,8 @@ importers:
   lib:
     dependencies:
       pixi.js:
-        specifier: 8.0.0-rc
-        version: 8.0.0-rc
+        specifier: 8.0.0-rc.3
+        version: 8.0.0-rc.3
     devDependencies:
       tsup:
         specifier: ^8.0.1
@@ -452,8 +452,8 @@ packages:
     dev: true
     optional: true
 
-  /@types/css-font-loading-module@0.0.8:
-    resolution: {integrity: sha512-PdJeLlCJj/ShOA+c0dXdZ/e1P0Cdjhip+dRBtPaigOqwKd0DiFx3NeO6T2E7AQ5JszSR3dub3YkQjc2hcQyxSw==}
+  /@types/css-font-loading-module@0.0.12:
+    resolution: {integrity: sha512-x2tZZYkSxXqWvTDgveSynfjq/T2HyiZHXb00j/+gy19yp70PHCizM48XFdjBCWH7eHBD0R5i/pw9yMBP/BH5uA==}
     dev: false
 
   /@types/earcut@2.1.4:
@@ -973,11 +973,11 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /pixi.js@8.0.0-rc:
-    resolution: {integrity: sha512-AW1TWj+TfQ6XbAiJD6cC0Y5wGQ3qXkKacxulnuKg9BkR2Cl40jF94nW37D63i2ZUwqw4Pz3+vmbpzTPky41C/w==}
+  /pixi.js@8.0.0-rc.3:
+    resolution: {integrity: sha512-IZp8wO6W5iOMv/UpVXsCMOyvOh23UG4XNqqbgq0nZz0aaT03njax7Nfj3i6J7r3HlfGTfLW0yWGAIq7VlVSvuA==}
     dependencies:
       '@pixi/colord': 2.9.6
-      '@types/css-font-loading-module': 0.0.8
+      '@types/css-font-loading-module': 0.0.12
       '@types/earcut': 2.1.4
       '@webgpu/types': 0.1.40
       '@xmldom/xmldom': 0.8.10
