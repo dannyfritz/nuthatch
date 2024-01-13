@@ -1,0 +1,26 @@
+{
+  "name": "rendix",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "types": "./dist/Rendix.d.ts",
+  "module": "./dist/Rendix.js",
+  "main": "./dist/Rendix.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/Rendix.js",
+      "require": "./dist/Rendix.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup ./src/Rendix.ts --dts --format esm,cjs --target es2022",
+    "dev": "npm run build -- --watch --sourcemap"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "pixi.js": "8.0.0-rc"
+  }
+}

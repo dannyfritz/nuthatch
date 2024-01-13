@@ -1,13 +1,15 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { Rendix } from "../src/Rendix";
+import { Rendix } from "rendix";
 import { withWatch, signal } from "@lit-labs/preact-signals";
+import pixiLogo from "../../public/pixi.png";
 
-const pixiLogo = await Rendix.loadAsset("../public/pixi.png");
+// const pixiLogo = await Rendix.loadAsset("../public/pixi.png");
 const showLogo = signal(true);
-const playRendix = signal(false);
+const playRendix = signal(true);
 
 const rendix = new Rendix();
+const pixiTexture = await rendix.load(pixiLogo);
 const render = async () => {
   if (!playRendix.value) {
     return;
@@ -19,7 +21,7 @@ const render = async () => {
     rendix.transform.push();
     rendix.transform.translate(-150, 0);
     rendix.transform.scale(2, 2);
-    rendix.drawSprite(pixiLogo, 150, 150 + sin * 10);
+    rendix.drawSprite(pixiTexture, 150, 150 + sin * 10);
     rendix.transform.pop();
   }
   rendix.render();
@@ -28,11 +30,14 @@ const render = async () => {
 
 @customElement("rendix-demo")
 class RendixDemoElement extends LitElement {
-  #rendix: HTMLCanvasElement;
+  #rendix: HTMLCanvasElement | undefined;
   constructor() {
     super();
-    this.#rendix = rendix.el;
-    requestAnimationFrame(render);
+    rendix.ready.then((rendix) => {
+      this.#rendix = rendix.el;
+      requestAnimationFrame(render);
+      this.update(new Map());
+    })
   }
 
   render() {
