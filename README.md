@@ -9,15 +9,14 @@ When `Rendix.clear()` is called, the screen & buffer are blanked; no state is re
 
 - Foundational
   - [x] render
-  - [x] clear
+  - [ ] clear
 - DrawObjects
   - [ ] drawCircle
   - [ ] drawLine
   - [ ] drawPolygon
-  - [x] drawRect
+  - [ ] drawRect
   - [x] drawSprte
-  - [x] drawText
-  - [x] fillStyle
+  - [ ] drawText
 - Framebuffer
   - [ ] Save Framebuffer
 - Matrix Transforms

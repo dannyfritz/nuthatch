@@ -1,83 +1,57 @@
-import { autoDetectRenderer, Assets, Container, Matrix, type Renderer, Texture, Sprite } from "pixi.js";
+import { Assets, Container, Matrix, Texture,Renderer, Sprite } from "pixi.js";
 
-class Transform {
-  constructor(matrix?: Matrix) {
-    this.#matrix = matrix ?? Matrix.IDENTITY.clone();
-    this.#matrixStack = [this.#matrix];
+class TransformStack {
+  constructor() {
+    this.#transforms = [Matrix.IDENTITY.clone()];
   }
+  clear(): void {
+    this.#transforms = [Matrix.IDENTITY.clone()];
+  }
+  pop(): void {
+    this.#transforms.pop();
+  }
+  push(): void {
+    this.#transforms.push(this.matrix.clone());
+  }
+  rotate(_rad: number): void {
+    this.matrix.rotate(0.5);
+  }
+  scale(x: number, y: number): void {
+    this.matrix.scale(x, y);
+  }
+  translate(x: number, y: number): void {
+    this.matrix.translate(x, y);
+  };
   get matrix(): Matrix {
-    return this.#matrix.clone();
+    return this.#transforms[this.#transforms.length - 1];
   }
-  pop() {
-    if (this.#matrixStack.length > 0) {
-      this.#matrix = this.#matrixStack.pop()!;
-    } else {
-      this.#matrix = Matrix.IDENTITY.clone();
-    }
-  }
-  push() {
-    this.#matrixStack.push(this.#matrix);
-    this.#matrix = this.#matrix.clone();
-  }
-  rotate(angle: number) {
-    this.#matrix.rotate(angle);
-  }
-  scale(x: number, y: number) {
-    this.#matrix.scale(x, y);
-  }
-  translate(x: number, y: number) {
-    this.#matrix.translate(x, y);
-  }
-  applyToContainer(container: Container) {
-    container.x = this.#matrix.tx;
-    container.y = this.#matrix.ty;
-  }
-  #matrix: Matrix;
-  #matrixStack: Array<Matrix>;
+  #transforms: Array<Matrix>;
 }
 
 class Rendix {
   constructor() {
-    this.#ready = new Promise((resolve) => {
-      autoDetectRenderer({ clearBeforeRender: false }).then((renderer) => {
-        this.#pixiRenderer = renderer;
-        resolve(this);
-      });
-    });
-    this.#buffer = [];
-    this.transform = new Transform();
+    this.#pixiRenderer = new Renderer({ clearBeforeRender: false })
+    this.#container = new Container();
   }
   clear(): void {
-    // this.#pixiRenderer.clear();
-    // this.#pixiRenderer?.clear();
-    this.#buffer = [];
+    this.#container = new Container();
   }
-  drawRect(x: number, y: number, width: number, height: number): void {
-    console.log(x, y, width, height);
-  }
-  drawSprite(texture: Texture): void {
+  drawSprite(texture: Texture, matrix: Matrix): void {
     const sprite = new Sprite(texture);
-    this.transform.applyToContainer(sprite);
-    this.#buffer.push(sprite)
+    sprite.localTransform.copyFrom(matrix);
+    this.#container.addChild(sprite);
   }
   load(url: string): Promise<Texture> {
     return Assets.load(url);
   }
-  transform: Transform;
   render(): void {
-    const container = new Container();
-    container.addChild(...this.#buffer);
-    this.#pixiRenderer?.render(container);
+    this.#pixiRenderer?.render(this.#container);
   }
   get el(): HTMLCanvasElement {
-    return this.#pixiRenderer?.canvas as HTMLCanvasElement;
+    return this.#pixiRenderer?.view as HTMLCanvasElement;
   }
-  get ready(): Promise<Rendix> {
-    return this.#ready;
-  }
-  #buffer: Array<Container>;
-  #pixiRenderer: Renderer | undefined;
-  #ready: Promise<Rendix>;
+  #container: Container;
+  #pixiRenderer: Renderer;
 }
 
-export { Rendix };
+export { Rendix, TransformStack };

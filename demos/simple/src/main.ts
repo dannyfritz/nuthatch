@@ -1,14 +1,14 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { Rendix } from "rendix";
+import { Rendix, TransformStack } from "rendix";
 import { withWatch, signal } from "@lit-labs/preact-signals";
 import pixiLogo from "../../public/pixi.png";
 
-// const pixiLogo = await Rendix.loadAsset("../public/pixi.png");
 const showLogo = signal(true);
 const playRendix = signal(true);
 
 const rendix = new Rendix();
+const transformStack = new TransformStack();
 const pixiTexture = await rendix.load(pixiLogo);
 const render = async () => {
   if (!playRendix.value) {
@@ -17,12 +17,18 @@ const render = async () => {
   const now = performance.now();
   const sin = Math.sin(now / 500);
   rendix.clear();
+  transformStack.clear();
   if (showLogo.peek()) {
-    rendix.transform.push();
-    rendix.transform.translate(50, 50 + sin * 10);
-    rendix.transform.scale(2, 2);
-    rendix.drawSprite(pixiTexture);
-    rendix.transform.pop();
+    transformStack.push();
+    transformStack.translate(20, 10 + sin * 10);
+    transformStack.scale(2, 2);
+    rendix.drawSprite(pixiTexture, transformStack.matrix);
+    transformStack.pop();
+    transformStack.push();
+    transformStack.translate(-10, -10);
+    transformStack.rotate(-.5);
+    transformStack.translate(150, 50);
+    rendix.drawSprite(pixiTexture, transformStack.matrix);
   }
   rendix.render();
   requestAnimationFrame(render);
@@ -33,11 +39,8 @@ class RendixDemoElement extends LitElement {
   #rendix: HTMLCanvasElement | undefined;
   constructor() {
     super();
-    rendix.ready.then((rendix) => {
-      this.#rendix = rendix.el;
-      requestAnimationFrame(render);
-      this.update(new Map());
-    })
+    this.#rendix = rendix.el;
+    requestAnimationFrame(render);
   }
 
   render() {
