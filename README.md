@@ -1,9 +1,7 @@
 # Rendix
 
-Rendix is an immeidate mode renderer backed by Pixi@^7.
-All draw calls made to Rendix are recorded to an internal buffer.
-When `Rendix.render()` is called, the internal buffer is iterated over and objects are drawn to the canvas.
-When `Rendix.clear()` is called, the screen & buffer are blanked; no state is retained.
+Rendix is an immediate mode renderer backed by pixi.js@^7.
+Inspired by the LOVE2d API.
 
 ## Features
 
