@@ -1,5 +1,8 @@
 # Nuthatch
 
+> [!WARNING]
+> Very early code. Not recommended for use.
+
 Nuthatch is a collection of thin libraries to make interactive experiences such as games.
 
 ## Renderer
