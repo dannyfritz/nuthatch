@@ -1,4 +1,4 @@
-import { Assets, Container, Matrix, Texture,Renderer, Sprite } from "pixi.js";
+import { Assets, Container, Matrix, Texture, Renderer, Sprite } from "pixi.js";
 
 class TransformStack {
   constructor() {
@@ -28,7 +28,7 @@ class TransformStack {
   #transforms: Array<Matrix>;
 }
 
-class Rendix {
+class NhRenderer {
   constructor() {
     this.#pixiRenderer = new Renderer({ clearBeforeRender: false })
     this.#container = new Container();
@@ -54,4 +54,4 @@ class Rendix {
   #pixiRenderer: Renderer;
 }
 
-export { Rendix, TransformStack };
+export { NhRenderer as Renderer, TransformStack };

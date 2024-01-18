@@ -1,25 +1,33 @@
-# Rendix
+# Nuthatch
 
-Rendix is an immediate mode renderer backed by pixi.js@^7.
+Nuthatch is a collection of thin libraries to make interactive experiences such as games.
+
+## Renderer
+
+An immediate mode renderer backed by pixi.js@^7.
 Inspired by the LOVE2d API.
 
-## Features
+- [x] render
+- [ ] clear
+- [ ] drawCircle
+- [ ] drawLine
+- [ ] drawPolygon
+- [ ] drawRect
+- [x] drawSprte
+- [ ] drawText
+- [ ] Save Framebuffer
 
-- Foundational
-  - [x] render
-  - [ ] clear
-- DrawObjects
-  - [ ] drawCircle
-  - [ ] drawLine
-  - [ ] drawPolygon
-  - [ ] drawRect
-  - [x] drawSprte
-  - [ ] drawText
-- Framebuffer
-  - [ ] Save Framebuffer
-- Matrix Transforms
-  - [x] scale
-  - [x] rotate
-  - [x] translate
-  - [x] push
-  - [x] pop
+### TransformStack
+
+- [x] scale
+- [x] rotate
+- [x] translate
+- [x] push
+- [x] pop
+
+## Input
+
+### Keyboard
+
+- [ ] keyDown
+- [ ] keyUp

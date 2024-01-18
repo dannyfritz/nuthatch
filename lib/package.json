@@ -1,19 +1,19 @@
 {
-  "name": "rendix",
+  "name": "nuthatch",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "types": "./dist/Rendix.d.ts",
-  "module": "./dist/Rendix.js",
-  "main": "./dist/Rendix.cjs",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "exports": {
     ".": {
-      "import": "./dist/Rendix.js",
-      "require": "./dist/Rendix.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "scripts": {
-    "build": "tsup ./src/Rendix.ts --dts --format esm,cjs --target es2022",
+    "build": "tsup ./src/index.ts --dts --format esm,cjs --target es2022",
     "dev": "npm run build -- --watch --sourcemap"
   },
   "devDependencies": {
