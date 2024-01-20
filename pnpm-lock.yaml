@@ -12,6 +12,19 @@ importers:
         specifier: ^3.0.3
         version: 3.1.1
 
+  demos/pong:
+    dependencies:
+      nuthatch:
+        specifier: workspace:^
+        version: link:../../lib
+    devDependencies:
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+      vite:
+        specifier: ^5.0.8
+        version: 5.0.10
+
   demos/simple:
     dependencies:
       '@lit-labs/preact-signals':
