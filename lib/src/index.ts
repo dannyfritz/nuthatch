@@ -1,4 +1,4 @@
-import { Assets, Container, Matrix, Texture, Renderer, Sprite } from "pixi.js";
+import { Assets, Container, Matrix, Texture, autoDetectRenderer, type Renderer, Sprite } from "pixi.js";
 
 class TransformStack {
   constructor() {
@@ -30,15 +30,20 @@ class TransformStack {
 
 class NhRenderer {
   constructor() {
-    this.#pixiRenderer = new Renderer({ clearBeforeRender: false })
+    autoDetectRenderer({}).then((renderer) => {
+      this.#pixiRenderer = renderer;
+    })
     this.#container = new Container();
   }
   clear(): void {
     this.#container = new Container();
   }
-  drawSprite(texture: Texture, matrix: Matrix): void {
+  drawSprite(texture: Texture, _matrix: Matrix): void {
     const sprite = new Sprite(texture);
-    sprite.localTransform.copyFrom(matrix);
+    // sprite.updateLocalTransform = function () {
+    //   this.localTransform.copyFrom(matrix);
+    // }
+    sprite._onUpdate();
     this.#container.addChild(sprite);
   }
   load(url: string): Promise<Texture> {
@@ -48,10 +53,10 @@ class NhRenderer {
     this.#pixiRenderer?.render(this.#container);
   }
   get el(): HTMLCanvasElement {
-    return this.#pixiRenderer?.view as HTMLCanvasElement;
+    return this.#pixiRenderer?.canvas as HTMLCanvasElement;
   }
   #container: Container;
-  #pixiRenderer: Renderer;
+  #pixiRenderer: Renderer | undefined;
 }
 
 export { NhRenderer as Renderer, TransformStack };

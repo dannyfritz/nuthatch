@@ -19,15 +19,15 @@ const renderFn = async () => {
   renderer.clear();
   transformStack.clear();
   if (showLogo.peek()) {
-    transformStack.push();
-    transformStack.translate(20, 10 + sin * 10);
-    transformStack.scale(2, 2);
+    // transformStack.push();
+    // transformStack.translate(20, 10 + sin * 10);
+    // transformStack.scale(2, 2);
     renderer.drawSprite(pixiTexture, transformStack.matrix);
-    transformStack.pop();
-    transformStack.push();
-    transformStack.translate(-10, -10);
-    transformStack.rotate(-.5);
-    transformStack.translate(150, 50);
+    // transformStack.pop();
+    // transformStack.push();
+    // transformStack.translate(-10, -10);
+    // transformStack.rotate(-.5);
+    // transformStack.translate(150, 50);
     renderer.drawSprite(pixiTexture, transformStack.matrix);
   }
   renderer.render();

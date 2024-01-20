@@ -21,6 +21,6 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
-    "pixi.js": "^7"
+     "pixi.js": "https://pkg.csb.dev/pixijs/pixijs/commit/7af0ec67/pixi.js"
   }
 }
