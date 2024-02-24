@@ -38,12 +38,11 @@ class NhRenderer {
   clear(): void {
     this.#container = new Container();
   }
-  drawSprite(texture: Texture, _matrix: Matrix): void {
+  drawSprite(texture: Texture, matrix: Matrix): void {
     const sprite = new Sprite(texture);
-    // sprite.updateLocalTransform = function () {
-    //   this.localTransform.copyFrom(matrix);
-    // }
-    sprite._onUpdate();
+    sprite.updateLocalTransform = function () {
+      this.localTransform.copyFrom(matrix);
+    }
     this.#container.addChild(sprite);
   }
   load(url: string): Promise<Texture> {
@@ -60,3 +59,4 @@ class NhRenderer {
 }
 
 export { NhRenderer as Renderer, TransformStack };
+
