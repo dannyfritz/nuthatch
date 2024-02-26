@@ -1,4 +1,24 @@
-import { Assets, Container, Matrix, Texture, autoDetectRenderer, type Renderer, Sprite } from "pixi.js";
+import { Assets, Container, Matrix, Point, Texture, autoDetectRenderer, type Renderer, Sprite } from "pixi.js";
+
+class Clock {
+  startTime: number = Number.MIN_VALUE;
+  previousTime: number = Number.MIN_VALUE;
+  elapsedTime: number = 0;
+  deltaTime: number = Number.EPSILON;
+  get deltaTimeS (): number {
+    return this.deltaTime / 1000;
+  }
+  start() {
+    this.startTime = performance.now();
+    this.previousTime = performance.now();
+    this.deltaTime = Number.EPSILON;
+  }
+  tick(currentTime: number) {
+    this.deltaTime = Math.min(currentTime - this.previousTime, 16);
+    this.previousTime = currentTime;
+    this.elapsedTime = currentTime - this.startTime;
+  }
+};
 
 class TransformStack {
   constructor() {
@@ -29,9 +49,13 @@ class TransformStack {
 }
 
 class NhRenderer {
+  ready: Promise<void>;
   constructor() {
+    let resolve: () => void;
+    this.ready = new Promise((_resolve) => resolve = _resolve);
     autoDetectRenderer({}).then((renderer) => {
       this.#pixiRenderer = renderer;
+      resolve();
     })
     this.#container = new Container();
   }
@@ -58,5 +82,5 @@ class NhRenderer {
   #pixiRenderer: Renderer | undefined;
 }
 
-export { NhRenderer as Renderer, TransformStack };
+export { Clock, NhRenderer as Renderer, Point, TransformStack };
 
